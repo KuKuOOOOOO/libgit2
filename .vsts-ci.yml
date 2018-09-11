@@ -56,6 +56,17 @@ jobs:
        CMAKE_OPTIONS=-DUSE_HTTPS=mbedTLS -DSHA1_BACKEND=mbedTLS
        LEAK_CHECK=valgrind
 
+- job: linux_trusty_arm32
+  displayName: 'Linux (Trusty; arm32)'
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  steps:
+  - script: docker run --rm --privileged multiarch/qemu-user-static:register --reset
+    displayName: 'Register Docker QEMU'
+  - template: ci/vsts-docker.yml
+    parameters:
+      imageName: 'multiarch/ubuntu-core:armhf-trusty'
+
 - job: macos
   displayName: 'macOS'
   pool:
